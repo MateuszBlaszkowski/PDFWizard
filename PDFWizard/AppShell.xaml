@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="PDFWizard.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:PDFWizard"
+    Shell.FlyoutBehavior="Disabled"
+    FlyoutBehavior="Locked"
+    FlyoutWidth="160"
+   
+    >
+    <Shell.FlyoutHeaderTemplate>
+        <DataTemplate>
+            <Grid
+                  HeightRequest="100">
+                
+                <Label Text="PDFWizard"
+                       FontSize="22"
+                       FontAttributes="Bold"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center" 
+                       FontFamily="Rubik"
+                       />
+            </Grid>
+        </DataTemplate>
+    </Shell.FlyoutHeaderTemplate>
+    <Shell.FlyoutFooterTemplate>
+        <DataTemplate>
+            <StackLayout>
+                <Button Text="ok" HorizontalOptions="Start" Margin="10" BackgroundColor="#eeeeee" TextColor="Black"/>
+            </StackLayout>
+        </DataTemplate>
+    </Shell.FlyoutFooterTemplate>
+    <FlyoutItem Title="Łączenie Pdf" >
+        <Tab>
+            <ShellContent
+                
+                ContentTemplate="{DataTemplate local:MainPage}"
+                Route="MainPage" 
+           
+                />
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem Title="page2">
+        <Tab>
+            <ShellContent
+                
+                ContentTemplate="{DataTemplate local:NewPage1}"
+                />
+        </Tab>
+    </FlyoutItem>
+</Shell>
