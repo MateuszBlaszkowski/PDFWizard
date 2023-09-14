@@ -29,48 +29,55 @@ public partial class MainPage : ContentPage
         }
         if (filesList.Count > 1)
         {
-            MergeBtn.IsVisible = true;
+            mergeBtn.IsVisible = true;
         }
     }
     private void DownClicked(object sender, EventArgs e)
     {
-        var Button = (Button)sender;
-        int id = Convert.ToInt16(Button.ClassId);
+        var button = (Button)sender;
+        int id = Convert.ToInt16(button.ClassId);
 
-        var targetFile1 = filesList.FirstOrDefault(file => file.id == id);
-        if (filesList.IndexOf(targetFile1) < filesList.Count - 1)
+        var targetFile = filesList.FirstOrDefault(file => file.id == id);
+        if (filesList.IndexOf(targetFile) < filesList.Count - 1)
         {
-            filesList.Move(filesList.IndexOf(targetFile1), filesList.IndexOf(targetFile1) + 1);
+            filesList.Move(filesList.IndexOf(targetFile), filesList.IndexOf(targetFile) + 1);
         }
     }
     private void Upclicked(object sender, EventArgs e)
     {
         var Button = (Button)sender;
         int id = Convert.ToInt16(Button.ClassId);
-        var targetFile1 = filesList.FirstOrDefault(file => file.id == id);
-        if(filesList.IndexOf(targetFile1)>0)
+        var targetFile = filesList.FirstOrDefault(file => file.id == id);
+        if(filesList.IndexOf(targetFile)>0)
         {
-            filesList.Move(filesList.IndexOf(targetFile1), filesList.IndexOf(targetFile1) - 1);
+            filesList.Move(filesList.IndexOf(targetFile), filesList.IndexOf(targetFile) - 1);
         }
     }
     private void Delete(object sender, EventArgs e)
     {
-        var Button = (Button)sender;
-        int id = Convert.ToInt16(Button.ClassId);
-        var targetFile1 = filesList.FirstOrDefault(file => file.id == id);
-        filesList.Remove(targetFile1);
+        var button = (Button)sender;
+        int id = Convert.ToInt16(button.ClassId);
+        var targetFile = filesList.FirstOrDefault(file => file.id == id);
+        filesList.Remove(targetFile);
         if (filesList.Count < 2)
         {
-            MergeBtn.IsVisible = false;
+            mergeBtn.IsVisible = false;
         }
     }
     private async void Merge(object sender, EventArgs e)
     {
         string downloadsPath = KnownFolders.Downloads.Path;
+        string targetPath = downloadsPath + "\\" + filesList[0].Filename + "-merged.pdf";
+        int fileCount = 0;
+        while (File.Exists(targetPath))
+        {
+           fileCount++;
+           targetPath = downloadsPath + "\\" + filesList[0].Filename + "-merged"+"("+fileCount +")"+".pdf";
+        }
         cl1.IsVisible = false;
-        MergeBtn.IsVisible=false;
+        mergeBtn.IsVisible=false;
         Document document = new Document();
-        PdfCopy copy = new PdfCopy(document, new FileStream(downloadsPath + "\\" + filesList[0].Filename+"-merged.pdf", FileMode.Create));
+        PdfCopy copy = new PdfCopy(document, new FileStream(targetPath, FileMode.Create));
         document.Open();
 
         foreach (var f in filesList)
@@ -84,8 +91,15 @@ public partial class MainPage : ContentPage
             reader.Close();
         }
         document.Close();
-        DisplayAlert("OK", "Plik został zapisany!", "ok");
-        Process.Start("explorer.exe", downloadsPath + "\\" + filesList[0].Filename + "-merged.pdf");
+        string action = await DisplayActionSheet("Plik został zapisany! Co zrobić?", "Anuluj", null, "Otwórz lokalizację", "Otwórz plik");
+        if(action == "Otwórz lokalizację")
+        {
+            Process.Start("explorer.exe", downloadsPath);
+        }
+        else if (action == "Otwórz plik")
+        {
+            Process.Start("explorer.exe", downloadsPath + "\\" + filesList[0].Filename + "-merged.pdf");
+        }
         cl1.IsVisible = true;
         filesList.Clear();
     }

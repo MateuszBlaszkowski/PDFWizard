@@ -27,7 +27,7 @@
     <Shell.FlyoutFooterTemplate>
         <DataTemplate>
             <StackLayout>
-                <Button Text="ok" HorizontalOptions="Start" Margin="10" BackgroundColor="#eeeeee" TextColor="Black"/>
+                <Button Text="ok" HorizontalOptions="Start" Margin="10" BackgroundColor="#eeeeee" TextColor="Black" IsVisible="False"/>
             </StackLayout>
         </DataTemplate>
     </Shell.FlyoutFooterTemplate>
