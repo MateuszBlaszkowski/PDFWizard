@@ -2,7 +2,7 @@
 
 namespace PDFWizard.Model
 {
-    internal class file
+    internal class FileC
     {
         public string Filename { get; set; }
         public int id { get; set; }

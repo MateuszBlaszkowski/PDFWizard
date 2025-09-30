@@ -15,7 +15,7 @@ public partial class MainPage : ContentPage
         cl1.ItemsSource = filesList;
     }
 
-    ObservableCollection<file> filesList = new ObservableCollection<file> ();
+    ObservableCollection<FileC> filesList = new ObservableCollection<FileC> ();
    
     private async void OnCounterClicked(object sender, EventArgs e)
     {
@@ -24,7 +24,7 @@ public partial class MainPage : ContentPage
         {
             foreach(var f in result)
             {
-                filesList.Add(new file { Filename = f.FileName.ToString(), id = filesList.Count() + 1, Fullpath = f.FullPath.ToString() });
+                filesList.Add(new FileC { Filename = f.FileName.ToString(), id = filesList.Count() + 1, Fullpath = f.FullPath.ToString() });
             }
         }
         if (filesList.Count > 1)
