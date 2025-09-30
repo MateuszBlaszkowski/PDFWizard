@@ -8,9 +8,9 @@ PDFWziard - A lightweight application for conveniently combining PDF files.
 C# | .Net Maui
 
 ## Screenshots
-
-<img src="./pdfwizard_screen_1.png" Height="400" />
-<img src="./pdfwizard_screen_2.png" Height="400" />
-<img src="./pdfwizard_screen_3.png" Height="400" />
+<div style="display:flex">
+  <img src="./pdfwizard_screen_1.png" Height="400" />
+  <img src="./pdfwizard_screen_2.png" Height="400" />
+</div>
 
 images form freepik.com
